@@ -6,5 +6,5 @@ module.exports = function (userData) {
 		password: Joi.string().required(),
 	});
 
-	return schema.validate(userData);
+	return schema.validate(userData, { abortEarly: false });
 };

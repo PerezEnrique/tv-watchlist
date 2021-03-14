@@ -2,24 +2,43 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
-const usersRoutes = require("./routes/usersRoutes");
+const userRoutes = require("./routes/userRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 
 //configuration and middlewares
-if (!process.env.JWT_PRIVATE_KEY) {
-	console.log("FATAL ERROR: JWT private key is not defined");
+if (!process.env.SESS_SECRET) {
+	console.log("FATAL ERROR: session private secret is not defined");
 	process.exit(1);
 }
-connectDB();
 const port = process.env.PORT || 8000;
+const dbClient = connectDB().then(() => mongoose.connection.getClient());
 
-app.use(cors());
 app.use(express.json());
+app.use(
+	session({
+		name: process.env.SESS_NAME,
+		secret: process.env.SESS_SECRET,
+		saveUninitialized: false,
+		resave: false,
+		store: MongoStore.create({
+			clientPromise: dbClient,
+			collection: "session",
+			ttl: parseInt(process.env.SESS_LIFETIME) / 1000,
+		}),
+		cookie: {
+			sameSite: true,
+			secure: app.get("env") === "production",
+			maxAge: parseInt(process.env.SESS_LIFETIME),
+		},
+	})
+);
 
 //routes
-app.use("/user", usersRoutes);
+app.use("/user", userRoutes);
 app.use(errorHandler);
 
 app.listen(port, () =>

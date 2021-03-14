@@ -1,13 +1,11 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const validateUserData = require("../utils/validateUserData");
-const prepareDataForClient = require("../utils/prepareDataForClient");
+const sessionizeUser = require("../utils/sessionizeUser");
 
-async function getCurrentUser(req, res) {
-	const user = await User.findById(req.user._id).select(["-_id", "-password"]); //I'm not returning the id in other routes so I want to be consistence
-	return res.status(200).json({ data: user });
-}
-
+//route: POST /user/sign-up
+//access: public
+//desc: saves user in db
 async function saveUser(req, res) {
 	//We are using express-async-errrors
 	const { email, password } = req.body;
@@ -24,16 +22,15 @@ async function saveUser(req, res) {
 	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(password, salt);
 	const newUser = new User({ email, password: hashedPassword });
-	const token = newUser.generateAuthToken();
 	const savedUser = await newUser.save();
-	const dataForClient = prepareDataForClient(savedUser);
-	return res
-		.status(201)
-		.header("x-auth-token", token)
-		.header("access-control-expose-header", "x-auth-token")
-		.json({ success: true, data: dataForClient });
+	const sessionUser = sessionizeUser(savedUser);
+	req.session.user = sessionUser;
+	return res.status(201).json({ success: true, data: sessionUser });
 }
 
+//route: POST /user/log-in
+//access: public
+//desc: logs user in
 async function authenticateUser(req, res) {
 	const { email, password } = req.body;
 	const { error } = validateUserData(req.body);
@@ -51,19 +48,39 @@ async function authenticateUser(req, res) {
 			.status(400)
 			.json({ success: false, errorMessage: "Invalid email or password" });
 
-	const token = user.generateAuthToken();
-	const dataForClient = prepareDataForClient(user);
-	return res
-		.status(200)
-		.header("x-auth-token", token)
-		.header("access-control-expose-header", "x-auth-token")
-		.json({ success: true, data: dataForClient });
+	const sessionUser = sessionizeUser(user);
+	req.session.user = sessionUser;
+	return res.status(200).json({ success: true, data: sessionUser });
 }
 
+//route: GET /user
+//access: public
+//desc: returns the current user
+async function getCurrentUser(req, res) {
+	return res.json({ success: true, data: req.session.user });
+}
+
+//route: DELETE /user/log-out
+//access: public
+//desc: logs user out
+async function logUserOut(req, res) {
+	req.session.destroy(err => {
+		if (err) {
+			throw err;
+		}
+	});
+
+	res.clearCookie(process.env.SESS_NAME);
+	return res.status(200).json({ success: true, data: `User successfully logout` });
+}
+
+//route: PUT /user/update-watchlist
+//access: private
+//desc: updates user's watchlist
 async function updateWatchlist(req, res) {
 	const { id, name, image, rating, premiered, summary, genres } = req.body.show;
 
-	const user = await User.findById(req.user._id);
+	const user = await User.findById(req.session.user._id);
 	if (!user)
 		return res
 			.status(404)
@@ -73,8 +90,9 @@ async function updateWatchlist(req, res) {
 	if (showAlreadyAdded) {
 		user.watchlist.id(showAlreadyAdded._id).remove();
 		const updatedUser = await user.save();
-		const dataForClient = prepareDataForClient(updatedUser);
-		return res.status(200).json({ success: true, data: dataForClient });
+		const sessionUser = sessionizeUser(updatedUser);
+		req.session.user = sessionUser;
+		return res.status(200).json({ success: true, data: sessionUser });
 	}
 
 	const newShow = {
@@ -89,8 +107,15 @@ async function updateWatchlist(req, res) {
 
 	user.watchlist.push(newShow);
 	const updatedUser = await user.save();
-	const dataForClient = prepareDataForClient(updatedUser);
-	return res.status(200).json({ success: true, data: dataForClient });
+	const sessionUser = sessionizeUser(updatedUser);
+	req.session.user = sessionUser;
+	return res.status(200).json({ success: true, data: sessionUser });
 }
 
-module.exports = { saveUser, authenticateUser, getCurrentUser, updateWatchlist };
+module.exports = {
+	saveUser,
+	authenticateUser,
+	getCurrentUser,
+	logUserOut,
+	updateWatchlist,
+};
