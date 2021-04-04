@@ -77,6 +77,7 @@ class SignUpPage extends React.Component {
 							value={userData.email}
 							onChange={this.handleChange}
 							placeholder="Enter email"
+							required
 						/>
 						{errors.email && <div className="error-message">{errors.email}</div>}
 					</div>
@@ -92,6 +93,7 @@ class SignUpPage extends React.Component {
 							value={userData.password}
 							onChange={this.handleChange}
 							placeholder="Enter password"
+							required
 						/>
 						{errors.password && <div className="error-message">{errors.password}</div>}
 					</div>
@@ -107,6 +109,7 @@ class SignUpPage extends React.Component {
 							value={userData.confirmPassword}
 							onChange={this.handleChange}
 							placeholder="Confirm password"
+							required
 						/>
 						{errors.confirmPassword && (
 							<div className="error-message">{errors.confirmPassword}</div>
