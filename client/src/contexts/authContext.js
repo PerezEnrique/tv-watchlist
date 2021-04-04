@@ -28,7 +28,6 @@ class AuthProvider extends React.Component {
 	}
 
 	signUp = async (email, password) => {
-		//We are calling this method from outside so it has to be an arrow function so the "this" point to this class.
 		const { data } = await http.post("/user/sign-up", { email, password });
 		this.setState({ currentUser: data.data });
 	};
