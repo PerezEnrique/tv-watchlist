@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
+import LogOutPage from "./pages/LogOutPage";
 import "./App.css";
 
 class App extends React.Component {
@@ -12,6 +13,7 @@ class App extends React.Component {
 				<Header />
 				<Switch>
 					<Route path="/sign-up" component={SignUpPage} />
+					<Route path="/log-out" component={LogOutPage} />
 					<Route path="/" exact component={HomePage} />
 				</Switch>
 			</div>
