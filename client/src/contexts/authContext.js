@@ -18,8 +18,10 @@ class AuthProvider extends React.Component {
 	async componentDidMount() {
 		try {
 			this.setState({ loadingUser: true });
-			const { data } = await http.get("/user");
-			this.setState({ currentUser: data.data });
+			const {
+				data: { data },
+			} = await http.get("/user");
+			this.setState({ currentUser: data });
 			this.setState({ loadingUser: false });
 		} catch (ex) {
 			this.setState({ loadingUser: false });
@@ -28,13 +30,17 @@ class AuthProvider extends React.Component {
 	}
 
 	signUp = async (email, password) => {
-		const { data } = await http.post("/user/sign-up", { email, password });
-		this.setState({ currentUser: data.data });
+		const {
+			data: { data },
+		} = await http.post("/user/sign-up", { email, password });
+		this.setState({ currentUser: data });
 	};
 
 	logIn = async (email, password) => {
-		const { data } = await http.post("/user/log-in", { email, password });
-		this.setState({ currentUser: data.data });
+		const {
+			data: { data },
+		} = await http.post("/user/log-in", { email, password });
+		this.setState({ currentUser: data });
 	};
 
 	logOut = async () => {
@@ -43,8 +49,10 @@ class AuthProvider extends React.Component {
 	};
 
 	updateWatchlist = async show => {
-		const { data } = await http.put("/user/update-watchlist", { show });
-		this.setState({ currentUser: data.data });
+		const {
+			data: { data },
+		} = await http.put("/user/update-watchlist", { show });
+		this.setState({ currentUser: data });
 	};
 
 	render() {
