@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const validateUserData = require("../utils/validateUserData");
-const sessionizeUser = require("../utils/sessionizeUser");
+const { validateUserData } = require("../utils/validation");
+const { sessionizeUser } = require("../utils/helpers");
 
 //route: POST /user/sign-up
 //access: public
