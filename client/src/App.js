@@ -1,10 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { AuthenticationRoute } from "./utils/RoutesHandlers";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LogInPage from "./pages/LogInPage";
 import LogOutPage from "./pages/LogOutPage";
+import LoadingPage from "./pages/LoadingPage";
 import "./App.css";
 
 class App extends React.Component {
@@ -13,8 +15,9 @@ class App extends React.Component {
 			<div className="main-wrapper">
 				<Header />
 				<Switch>
-					<Route path="/log-in" component={LogInPage} />
-					<Route path="/sign-up" component={SignUpPage} />
+					<Route path="/loading-page" component={LoadingPage} />
+					<AuthenticationRoute path="/log-in" component={LogInPage} />
+					<AuthenticationRoute path="/sign-up" component={SignUpPage} />
 					<Route path="/log-out" component={LogOutPage} />
 					<Route path="/" exact component={HomePage} />
 				</Switch>
