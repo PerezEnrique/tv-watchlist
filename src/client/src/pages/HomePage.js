@@ -1,7 +1,6 @@
 import React from "react";
 import http from "../services/httpServices";
 import { AuthContext } from "../contexts/authContext";
-import config from "../config/config.json";
 import SingleShow from "../components/SingleShow";
 import SearchForm from "../components/SearchForm";
 import NoShow from "../components/NoShow";
@@ -30,7 +29,7 @@ class HomePage extends React.Component {
 	};
 
 	async performSearch(searchTerm) {
-		const { data } = await http.get(`${config.apiEndpoint}${searchTerm}`);
+		const { data } = await http.get(`http://api.tvmaze.com/search/shows?q=${searchTerm}`);
 		const fetchedShows = data.map(item => item.show);
 		this.setState({ shows: fetchedShows, loading: false });
 	}
