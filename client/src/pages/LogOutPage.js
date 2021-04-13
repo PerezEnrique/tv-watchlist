@@ -5,7 +5,6 @@ class LogoutPage extends React.Component {
 	static contextType = AuthContext;
 
 	componentDidMount() {
-		console.log("cdm");
 		this.context.logOut();
 		window.location = "/";
 	}
