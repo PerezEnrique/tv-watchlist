@@ -29,7 +29,9 @@ class HomePage extends React.Component {
 	};
 
 	async performSearch(searchTerm) {
-		const { data } = await http.get(`http://api.tvmaze.com/search/shows?q=${searchTerm}`);
+		const { data } = await http.get(
+			`https://api.tvmaze.com/search/shows?q=${searchTerm}`
+		);
 		const fetchedShows = data.map(item => item.show);
 		this.setState({ shows: fetchedShows, loading: false });
 	}
