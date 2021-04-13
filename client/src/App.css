@@ -38,9 +38,9 @@ a {
 	text-decoration: none;
 }
 
-.main-container {
-	width: 90%;
-	margin: 0 auto;
+.main-wrapper {
+	position: relative;
+	overflow-x: hidden;
 }
 
 /* HEADER */
@@ -136,78 +136,25 @@ a {
 	}
 }
 
-.main-wrapper {
-	position: relative;
-	overflow-x: hidden;
+/* CONTAINERS */
+.main-container {
+	width: 90%;
+	/* FALTA AQUÍ UN MAX WIDTHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH */
+	margin: 0 auto;
 }
 
-/* HOMEPAGE */
-
-.main-title {
-	font-family: var(--title-font);
-	font-size: 42px;
-	font-weight: 500;
-}
-
-.shows {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(290px, auto));
-	align-items: flex-end;
-}
-
+/*NO SHOWS*/
 .no-show {
 	max-width: 250px;
 	margin: 100px auto 0;
 	text-align: center;
 }
-
 .no-show__icon > * {
 	font-size: 32px;
 	color: var(--accent-color);
 }
 
-.no-show__message {
-	font-size: 14px;
-}
-
-/* SHOW CARD */
-.card {
-	background-color: var(--components-bg-color);
-	width: 80%;
-	max-width: 300px;
-	margin: 0 auto 25px;
-	border-radius: 15px;
-	box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
-}
-
-.card__img {
-	width: 100%;
-	vertical-align: middle;
-}
-
-.card__body {
-	padding: 0 1rem 1rem;
-}
-
-.card__body__title {
-	font-size: 18px;
-	color: var(--text-primary-color);
-}
-
-.card__body__watchlist-icon {
-	position: relative;
-	left: 85%;
-	font-size: 24px;
-}
-
-.genre {
-	display: inline-block;
-	color: var(--text-secondary-color);
-	font-size: 14px;
-	margin-right: 1em;
-}
-
-/* SINGLE SHOW SCREEN */
+/* SINGLE SHOW COMPONENT*/
 .show-screen {
 	/* position */
 	position: fixed;
@@ -217,9 +164,6 @@ a {
 	transform: translateX(100%);
 
 	/* structure */
-	/* display: flex;
-	flex-direction: column;
-	justify-content: space-between; */
 	width: 80%;
 	height: 100vh;
 	max-width: 475px;
@@ -294,7 +238,56 @@ a {
 	}
 }
 
-/* REST */
+/* SHOWS */
+.shows {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(290px, auto));
+	align-items: flex-end;
+}
+
+.card {
+	background-color: var(--components-bg-color);
+	width: 80%;
+	max-width: 300px;
+	margin: 0 auto 25px;
+	border-radius: 15px;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
+}
+
+.card__img {
+	width: 100%;
+	vertical-align: middle;
+}
+
+.card__body {
+	padding: 0 1rem 1rem;
+}
+
+.card__body__title {
+	font-size: 18px;
+	color: var(--text-primary-color);
+}
+
+.card__body__watchlist-icon {
+	position: relative;
+	left: 85%;
+	font-size: 24px;
+}
+
+/* OTHERS */
+.main-title {
+	font-family: var(--title-font);
+	font-size: 42px;
+	font-weight: 500;
+}
+
+.genre {
+	display: inline-block;
+	color: var(--text-secondary-color);
+	font-size: 14px;
+	margin-right: 1em;
+}
+
 .btn {
 	padding: 1rem;
 	border: none;
@@ -312,6 +305,7 @@ a {
 
 .error-message {
 	margin-bottom: 15px;
+	font-size: 20px;
 }
 
 /* UTILITY CLASSES */
@@ -319,7 +313,6 @@ a {
 	cursor: pointer;
 }
 
-/* EXTERNAL CSS */
 /* BOUNCE IN EFFECT (SHOUT-OUT TO IAN LUNN'S HOVER.CSS https://github.com/IanLunn/Hover) */
 .hvr-bounce-in {
 	display: inline-block;
