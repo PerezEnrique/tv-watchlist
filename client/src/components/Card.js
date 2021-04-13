@@ -32,19 +32,19 @@ function Card({ show, handleClickOnShow, handleWatchlist }) {
 								{genre}
 							</span>
 						))}
-						{currentUser && (
-							<span
-								className="card__body__watchlist-icon cursor-pointer"
-								onClick={() => handleWatchlist(show)}
-							>
-								{!showAlreadyOnWatchlist(currentUser, id) ? (
-									<FaRegCalendarPlus />
-								) : (
-									<FaCalendarTimes />
-								)}
-							</span>
-						)}
 					</div>
+				)}
+				{currentUser && (
+					<span
+						className="card__body__watchlist-icon cursor-pointer"
+						onClick={() => handleWatchlist(show)}
+					>
+						{!showAlreadyOnWatchlist(currentUser, id) ? (
+							<FaRegCalendarPlus />
+						) : (
+							<FaCalendarTimes />
+						)}
+					</span>
 				)}
 			</div>
 		</div>

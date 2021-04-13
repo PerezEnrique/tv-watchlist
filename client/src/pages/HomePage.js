@@ -1,5 +1,6 @@
 import React from "react";
 import http from "../services/httpServices";
+import { AuthContext } from "../contexts/authContext";
 import config from "../config/config.json";
 import SingleShow from "../components/SingleShow";
 import SearchForm from "../components/SearchForm";
@@ -19,6 +20,8 @@ class HomePage extends React.Component {
 		};
 	}
 
+	static contextType = AuthContext;
+
 	handleChange = e => {
 		const { value } = e.currentTarget;
 		this.setState({ searchTerm: value, loading: true }, () =>
@@ -32,7 +35,7 @@ class HomePage extends React.Component {
 		this.setState({ shows: fetchedShows, loading: false });
 	}
 
-	handleWatchList = async show => {
+	handleWatchlist = async show => {
 		await this.context.updateWatchlist(show);
 	};
 
@@ -54,6 +57,7 @@ class HomePage extends React.Component {
 					show={this.state.singleShow}
 					showScreenIsShown={this.state.showScreenIsShown}
 					closeShowScreen={this.closeShowScreen}
+					handleWatchlist={this.handleWatchlist}
 				/>
 				<h1 className="main-title">TV Watchlist</h1>
 				<SearchForm searchTerm={searchTerm} handleChange={this.handleChange} />
