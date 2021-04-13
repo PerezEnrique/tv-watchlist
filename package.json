@@ -1,25 +1,27 @@
 {
-  "name": "tv-watchlist",
-  "version": "1.0.0",
-  "description": "Just a simple watchlist app for tv shows",
-  "main": "server.js",
-  "scripts": {
-    "dev": "nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jesus Enrique Perez",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "connect-mongo": "^4.4.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-async-errors": "^3.1.1",
-    "express-session": "^1.17.1",
-    "joi": "^17.4.0",
-    "mongoose": "^5.11.15"
-  }
+	"name": "tv-watchlist",
+	"version": "1.0.0",
+	"description": "Just a simple watchlist app for tv shows",
+	"main": "server.js",
+	"scripts": {
+		"start": "node src/server.js",
+		"dev": "nodemon src/server.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+	},
+	"author": "Jesus Enrique Perez",
+	"license": "ISC",
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	},
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"connect-mongo": "^4.4.0",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-async-errors": "^3.1.1",
+		"express-session": "^1.17.1",
+		"joi": "^17.4.0",
+		"mongoose": "^5.11.15"
+	}
 }

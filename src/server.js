@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const path = require("path");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const errorHandler = require("./middlewares/errorHandler");
@@ -39,6 +40,11 @@ app.use(
 
 //routes
 app.use("/user", userRoutes);
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/client/build")));
+
+	app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/index.html")));
+}
 app.use(errorHandler);
 
 app.listen(port, () =>
