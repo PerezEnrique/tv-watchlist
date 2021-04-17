@@ -1,4 +1,4 @@
-import React from "react";
+api/import React from "react";
 import http from "../services/httpServices";
 
 //CONTEXT
@@ -20,7 +20,7 @@ class AuthProvider extends React.Component {
 			this.setState({ loadingUser: true });
 			const {
 				data: { data },
-			} = await http.get("/user");
+			} = await http.get("/api/user");
 			this.setState({ currentUser: data });
 			this.setState({ loadingUser: false });
 		} catch (ex) {
@@ -32,26 +32,26 @@ class AuthProvider extends React.Component {
 	signUp = async (email, password) => {
 		const {
 			data: { data },
-		} = await http.post("/user/sign-up", { email, password });
+		} = await http.post("/api/user/sign-up", { email, password });
 		this.setState({ currentUser: data });
 	};
 
 	logIn = async (email, password) => {
 		const {
 			data: { data },
-		} = await http.post("/user/log-in", { email, password });
+		} = await http.post("/api/user/log-in", { email, password });
 		this.setState({ currentUser: data });
 	};
 
 	logOut = async () => {
-		await http.delete("/user/log-out");
+		await http.delete("/api/user/log-out");
 		this.setState({ currentUser: null });
 	};
 
 	updateWatchlist = async show => {
 		const {
 			data: { data },
-		} = await http.put("/user/update-watchlist", { show });
+		} = await http.put("/api/user/update-watchlist", { show });
 		this.setState({ currentUser: data });
 	};
 

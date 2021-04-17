@@ -39,7 +39,7 @@ app.use(
 );
 
 //routes
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/client/build")));
 
