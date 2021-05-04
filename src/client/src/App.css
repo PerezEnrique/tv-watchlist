@@ -246,6 +246,12 @@ a {
   border-radius: 25px;
 }
 
+.input:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 6px 2px white;
+          box-shadow: 0 0 6px 2px white;
+}
+
 .label {
   margin-bottom: 15px;
   font-size: 20px;

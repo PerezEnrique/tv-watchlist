@@ -211,6 +211,10 @@ a {
 	font-size: 18px;
 	color: $text-primary-color;
 	border-radius: 25px;
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 6px 2px rgba(255, 255, 255, 1);
+	}
 }
 
 .label {
