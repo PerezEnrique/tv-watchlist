@@ -1,0 +1,378 @@
+$body-bg-color: rgb(18, 17, 15);
+$components-bg-color: #35353f;
+$accent-color: #ff0e39;
+$text-secondary-color: #dabb09;
+$text-primary-color: #d6d6d6;
+$title-font: "Noto Sans JP", sans-serif;
+$primary-font: "Noto Sans JP", sans-serif;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: $body-bg-color;
+	color: $text-primary-color;
+	font-family: $primary-font;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	object-fit: cover;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.main-wrapper {
+	position: relative;
+	overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+	display: flex;
+	align-items: center;
+	min-height: 67px;
+	padding: 0.5rem 1rem;
+	background-color: $body-bg-color;
+	&__nav {
+		/* position */
+		position: absolute;
+		top: 65px;
+		left: 0;
+		z-index: 2;
+		transform: translateX(-100%);
+
+		/* structure */
+		width: 80%;
+		height: calc(100vh - 67px);
+		max-width: 350px;
+		padding: 1rem;
+		line-height: 3;
+		background-color: $body-bg-color;
+
+		/*transition*/
+		transition: transform;
+		transition-duration: 0.5s;
+		transition-timing-function: ease-in;
+		&--active {
+			transform: translateX(0) !important;
+		}
+	}
+}
+
+/* NAV */
+.nav__link {
+	color: $text-primary-color;
+}
+
+/* HAMBURGUER */
+.hamburguer__line {
+	width: 25px;
+	height: 3px;
+	margin: 5px 0;
+	background-color: $accent-color;
+	transition: transform;
+	transition-duration: 0.5s;
+	transition-timing-function: ease;
+	&--top-active {
+		transform: rotate(-45deg) translate(-5px, 6px);
+	}
+	&--mid-active {
+		opacity: 0;
+	}
+	&--bottom-active {
+		transform: rotate(45deg) translate(-5px, -6px);
+	}
+}
+
+@media (min-width: 830px) {
+	.header {
+		justify-content: flex-end;
+		&__nav {
+			position: static;
+			transition-property: none;
+			transform: none;
+			width: 45%;
+			max-width: 600px;
+			height: auto;
+			padding: 0;
+		}
+	}
+
+	.nav {
+		display: flex;
+		justify-content: flex-end;
+		padding-right: 5%;
+	}
+
+	.nav > li {
+		margin-left: 5%;
+	}
+
+	.hamburguer {
+		display: none;
+	}
+}
+
+/* CONTAINERS */
+.main-container {
+	width: 90%;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+/*NO SHOWS*/
+.no-show {
+	max-width: 250px;
+	margin: 100px auto 0;
+	text-align: center;
+	&__icon > * {
+		font-size: 32px;
+		color: $accent-color;
+	}
+}
+
+/* SINGLE SHOW COMPONENT*/
+.show-screen {
+	/* position */
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	transform: translateX(100%);
+
+	/* structure */
+	width: 80%;
+	height: 100vh;
+	max-width: 475px;
+	padding: 2rem;
+	background-color: $body-bg-color;
+	overflow-y: scroll;
+
+	/*transition*/
+	transition: transform;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in;
+	&--active {
+		transform: translateX(0) !important;
+	}
+	&__close-icon {
+		font-size: 24px;
+	}
+}
+
+.show {
+	&__media {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	&__body {
+		&__title {
+			color: $text-primary-color;
+			font-size: 24px;
+		}
+		&__watchlist-icon {
+			display: inline-block;
+			margin-top: 10px;
+			font-size: 32px;
+		}
+	}
+}
+
+/* FORMS */
+.form {
+	margin: 0 auto 25px;
+	text-align: center;
+}
+
+.input {
+	display: block;
+	width: 100%;
+	max-width: 525px;
+	padding: 0.5rem;
+	margin: 0 auto 15px;
+	background-color: $components-bg-color;
+	border: none;
+	font-size: 18px;
+	color: $text-primary-color;
+	border-radius: 25px;
+}
+
+.label {
+	margin-bottom: 15px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+}
+
+@media (min-width: 500px) {
+	.input {
+		padding: 1rem;
+	}
+}
+
+/* SHOWS */
+.shows {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(290px, auto));
+	align-items: flex-end;
+}
+
+.card {
+	background-color: $components-bg-color;
+	width: 80%;
+	max-width: 300px;
+	margin: 0 auto 25px;
+	border-radius: 15px;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.18);
+	&__img {
+		width: 100%;
+		vertical-align: middle;
+	}
+	&__body {
+		padding: 0 1rem 1rem;
+		&__title {
+			font-size: 18px;
+			color: $text-primary-color;
+		}
+		&__watchlist-icon {
+			position: relative;
+			left: 85%;
+			font-size: 24px;
+		}
+	}
+}
+
+/* OTHERS */
+.main-title {
+	font-family: $title-font;
+	font-size: 42px;
+	font-weight: 500;
+}
+
+.genre {
+	display: inline-block;
+	color: $text-secondary-color;
+	font-size: 14px;
+	margin-right: 1em;
+}
+
+.btn {
+	padding: 1rem;
+	border: none;
+	border-radius: 10px;
+	background-color: $accent-color;
+	opacity: 0.9;
+	color: $text-primary-color;
+	font-family: $primary-font;
+	&:hover {
+		cursor: pointer;
+		opacity: 1;
+	}
+}
+
+.error-message {
+	margin-bottom: 15px;
+	font-size: 20px;
+}
+
+/* UTILITY CLASSES */
+.cursor-pointer:hover {
+	cursor: pointer;
+}
+
+/* BOUNCE IN EFFECT (SHOUT-OUT TO IAN LUNN'S HOVER.CSS https://github.com/IanLunn/Hover) */
+.hvr-bounce-in {
+	display: inline-block;
+	vertical-align: middle;
+	-webkit-transform: perspective(1px) translateZ(0);
+	transform: perspective(1px) translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	-webkit-transition-duration: 0.5s;
+	transition-duration: 0.5s;
+}
+.hvr-bounce-in:hover,
+.hvr-bounce-in:focus,
+.hvr-bounce-in:active {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+	-webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+	transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}
+
+/* LOADING SPINNER */
+.lds-ellipsis {
+	display: block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+.lds-ellipsis div {
+	position: absolute;
+	top: 33px;
+	width: 13px;
+	height: 13px;
+	border-radius: 50%;
+	background: #fff;
+	animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+	left: 8px;
+	animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+	left: 8px;
+	animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+	left: 32px;
+	animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+	left: 56px;
+	animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+@keyframes lds-ellipsis3 {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0);
+	}
+}
+@keyframes lds-ellipsis2 {
+	0% {
+		transform: translate(0, 0);
+	}
+	100% {
+		transform: translate(24px, 0);
+	}
+}
